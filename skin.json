@@ -470,22 +470,27 @@
         {
             "MatchRegexString": "OverlayBrowser_Browser",
             "TargetCss": "overlay/Browser.css"
+        },
+        {
+            "MatchRegexString": "^Steam$",
+            "TargetCss": "customizations/css/customizations.css",
+            "TargetJs": "customizations/js/customizations.js"
         }
     ],
     "RootColors": "colors.css",
     "Steam-WebKit": "webkit/webkit.css",
     "UseDefaultPatches": true,
-    "author": "ShadowMonster",
-    "description": "A sleek and elegant theme that brings a darker, more immersive experience to your Steam client.",
+    "author": "corrosivefrost",
+    "description": "A variant of the simply-dark theme created by ShadowMonster with some personal tweaks/customizations",
     "discord_support": {
         "inviteCodeExcludingLink": "NcNMP6r2Cw"
     },
     "github": {
-        "owner": "shdwmtr",
+        "owner": "barryjj",
         "repo_name": "simply-dark"
     },
     "header_image": "https://i.imgur.com/uXtPTnr.png",
-    "name": "Simple Dark.",
+    "name": "Simple Dark [Frost]",
     "splash_image": "https://i.imgur.com/uXtPTnr.png",
     "tags": [
         "Minimal",

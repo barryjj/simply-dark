@@ -1,0 +1,128 @@
+/* ===== LIBRARY GRID AND GAME PAGE BANNER CUSTOMIZATIONS ===== */
+
+/* Set custom viewport height variable */
+:root {
+    --custom-vh: 60vh;
+}
+
+/* Game page banner height - uses custom-vh */
+.NZMJ6g2iVnFsOOp-lDmIP {
+    max-height: var(--custom-vh) !important;
+}
+._1IX7FPSY9Jb82KhBVBSkZa {
+    max-height: var(--custom-vh) !important;
+}
+
+/* Override all header height calculations to use custom variable */
+body .NZMJ6g2iVnFsOOp-lDmIP {
+    --header-height: calc(var(--custom-vh) - 46px - 16px - 12px - 70px - 6px - 40px - 16px - 16px - 50px - 16px) !important;
+}
+
+body ._1SvpjsckP9cPRxO6gCBHrw:has(._1_cYNJSvS6IXs9vLTEYjy5 .z8GYwNt_nbBZrf7OVjs-s) .NZMJ6g2iVnFsOOp-lDmIP {
+    --header-height: calc(var(--custom-vh) - 46px - 16px - 12px - 70px - 6px - 40px - 16px - 16px - 46px) !important;
+}
+
+body .NarrowWindow .NZMJ6g2iVnFsOOp-lDmIP {
+    --header-height: calc(var(--custom-vh) - 46px - 16px - 12px - 56px - 6px - 40px - 16px - 16px - 50px - 16px) !important;
+}
+
+body .NarrowWindow ._1SvpjsckP9cPRxO6gCBHrw:has(._1_cYNJSvS6IXs9vLTEYjy5 .z8GYwNt_nbBZrf7OVjs-s) .NZMJ6g2iVnFsOOp-lDmIP {
+    --header-height: calc(var(--custom-vh) - 46px - 16px - 12px - 56px - 6px - 40px - 16px - 16px - 50px - 16px - 46px) !important;
+}
+
+body :has(.userpannel-buttoncontainer) .NZMJ6g2iVnFsOOp-lDmIP {
+    --header-height: calc(var(--custom-vh) - 46px - 16px - 12px - 70px - 6px - 40px - 16px - 16px) !important;
+}
+
+body :has(.userpannel-buttoncontainer) ._1SvpjsckP9cPRxO6gCBHrw:has(._1_cYNJSvS6IXs9vLTEYjy5 .z8GYwNt_nbBZrf7OVjs-s) .NZMJ6g2iVnFsOOp-lDmIP {
+    --header-height: calc(var(--custom-vh) - 46px - 16px - 12px - 70px - 6px - 40px - 16px - 16px - 46px) !important;
+}
+
+body :has(.userpannel-buttoncontainer) .NarrowWindow .NZMJ6g2iVnFsOOp-lDmIP {
+    --header-height: calc(var(--custom-vh) - 46px - 16px - 12px - 56px - 6px - 40px - 16px - 16px) !important;
+}
+
+body :has(.userpannel-buttoncontainer) .NarrowWindow ._1SvpjsckP9cPRxO6gCBHrw:has(._1_cYNJSvS6IXs9vLTEYjy5 .z8GYwNt_nbBZrf7OVjs-s) .NZMJ6g2iVnFsOOp-lDmIP {
+    --header-height: calc(var(--custom-vh) - 46px - 16px - 12px - 56px - 6px - 40px - 16px - 16px - 46px) !important;
+}
+
+/* Hide Add Shelf button, prevent interaction */
+/*._3SkuN_ykQuWGF94fclHdhJ {
+    visibility: hidden !important;
+    pointer-events: none !important;
+}*/
+
+/* Remove spacing from most grids/shelves, fix behaviour of window resizing to prevent introducing spaces */
+/*[role="grid"][style*="grid-template-columns"] {
+    grid-template-columns: repeat(auto-fit, minmax(222px, 1fr)) !important;
+    gap: 0px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}*/
+
+/* Fix Recent Games negative margin variable */
+._3CJctA7pLVdwHzNF5JmORE._1urF0O1V4DZOkjI28mDvRK {
+    --negative-margin: 0px !important;
+}
+
+[role="grid"][style*="grid-template-columns"] {
+    grid-template-columns: repeat(auto-fill, minmax(222px, 1fr)) !important;
+    gap: 0px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    justify-content: start !important;
+}
+
+
+/* Remove spacing from Recent Games list */
+[role="list"][aria-label="Recent Games"] {
+    gap: 0px !important;
+    padding: 0px !important;
+    margin: 0px !important;
+    border: none !important;
+}
+
+/* Get rid of new to library label */
+._2jj5TjFhHD1lvxMlpJYek6 {
+    visibility: hidden !important;
+}
+
+/* Remove background when notification is active */
+/*._2Szzh5sKyGgnLUR870zbDE._5wILZhsLODVwGfcJ0hKmJ._1oEwirQksXfZ-3RWWslbAR */
+._2Szzh5sKyGgnLUR870zbDE.RtSv39ZoBOySnb8XQ5hJf._3L1c8C0o_xXzPy26aoLBFd {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+/* Remove background when notifications are active */
+/*._2Szzh5sKyGgnLUR870zbDE._5wILZhsLODVwGfcJ0hKmJ._1oEwirQksXfZ-3RWWslbAR */
+._2Szzh5sKyGgnLUR870zbDE {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+
+
+/* get rid of weird empty rectangle above recent games */
+._3SkuN_ykQuWGF94fclHdhJ {
+  display: none !important;
+}
+
+/* fix alignment by moving padding */
+._3Sb2o_mQ30IDRh0C72QUUu {
+    padding: 0px 0px 0px 0px;
+}
+
+/* delete what's new section */
+._17uEBe5Ri8TMsnfELvs8-N {
+    display: none !important;
+}
+
+/* hide image 2/3 on game details page to fix unblurred hero doing repeating strangeness */
+
+img._3_IUVzR9tpG_JKEjhwXEAb {
+  display: none !important;
+}
+
+.QlR9EFwTdUNm_J5vx54_Z {
+  display: none !important;
+}
