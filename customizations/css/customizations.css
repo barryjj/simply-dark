@@ -119,10 +119,11 @@ body :has(.userpannel-buttoncontainer) .NarrowWindow ._1SvpjsckP9cPRxO6gCBHrw:ha
 
 /* hide image 2/3 on game details page to fix unblurred hero doing repeating strangeness */
 
-img._3_IUVzR9tpG_JKEjhwXEAb {
+/* Only hide blur layers when the main sharp image is also present */
+img.HSQWw9HUAP6jtA2OZjS-u ~ .QlR9EFwTdUNm_J5vx54_Z {
   display: none !important;
 }
 
-.QlR9EFwTdUNm_J5vx54_Z {
+img.HSQWw9HUAP6jtA2OZjS-u ~ img._3_IUVzR9tpG_JKEjhwXEAb {
   display: none !important;
 }
