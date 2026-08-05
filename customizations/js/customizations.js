@@ -1,186 +1,50 @@
+// ============================================================
+// unblurHero
+// Replaces library_hero_blur.jpg with library_hero.jpg on
+// the game detail page so the hero image is sharp.
+// ============================================================
 (function unblurHero() {
-    const observer = new MutationObserver(() => {
-        // Find the blurred hero image
-        const img = document.querySelector('img[src*="library_hero_blur.jpg"]');
-        if (img) {
-            // Replace the URL with the sharp version
-            img.src = img.src.replace('library_hero_blur.jpg', 'library_hero.jpg');
-        }
-    });
-
-    // Start watching for Steam UI changes
-    observer.observe(document.body, { childList: true, subtree: true });
-})();
-
-
-
-
-/**
- * recent_games_shelf_fix.js
- * =========================
- * Scales the Recent Games shelf to fill its container width.
- * - Measures the shelf container width at runtime
- * - Calculates portrait card width so all items fill exactly
- * - Caps card size at the #INSTALLED grid's card size
- * - Shows ← → carousel arrows if items overflow
- * - Hero card stays proportional (2.108x portrait width, same height)
- */
-
-/*
-
-(function () {
-  'use strict';
-
-  // Ratio constants derived from Steam's hardcoded values
-  const HERO_RATIO   = 368.9 / 175;  // 2.108 — hero width relative to portrait
-  const HEIGHT_RATIO = 262.5 / 175;  // 1.5   — height relative to portrait width
-
-  function getInstalledCardWidth() {
-    // The installed/collection grids use class _3DJLGrqzoQ5vMDI_4VG502
-    // and have grid-template-columns: repeat(auto-fill, 222px) inline
-    const grids = document.querySelectorAll('._3DJLGrqzoQ5vMDI_4VG502[role="grid"]');
-    for (const grid of grids) {
-      const colMatch = (grid.style.gridTemplateColumns || '')
-        .match(/(\d+(?:\.\d+)?)px\s*\)$/);
-      if (colMatch) return parseFloat(colMatch[1]);
-    }
-    return 222; // hardcoded fallback matching what the HTML shows
-  }
-
-  function patchRecentGames() {
-    const list = document.querySelector('[role="list"][aria-label="Recent Games"]');
-    if (!list || list.dataset.rgPatched === '1') return;
-
-    const items = Array.from(
-      list.querySelectorAll('._1esfEVxhqNfh8fzr_kEGKa[role="listitem"]')
-    ).filter(item => item.querySelector('._2XftMcBO9aY7VXCivzuW7-'));
-
-    if (!items.length) return;
-    list.dataset.rgPatched = '1';
-
-    // Measure available width from the shelf's scroll container
-    const scrollContainer = list.parentElement;
-    const availableW = scrollContainer
-      ? scrollContainer.getBoundingClientRect().width
-      : window.innerWidth - 32;
-
-    // Count hero vs portrait items
-    const heroCount = items.filter(item =>
-      item.querySelector('._3VOR2AeYATx3qSE0I-Pm-5.WYgDg9NyCcMIVuMyZ_NBC')
-    ).length;
-    const portraitCount = items.length - heroCount;
-
-    // Solve for portrait width:
-    // availableW = (heroCount * HERO_RATIO * portraitW) + (portraitCount * portraitW)
-    // availableW = portraitW * (heroCount * HERO_RATIO + portraitCount)
-    const divisor = (heroCount * HERO_RATIO) + portraitCount;
-    let portraitW = availableW / divisor;
-
-    // Cap at installed grid card size so we don't exceed the grid below
-    const maxW = getInstalledCardWidth();
-    portraitW = Math.min(portraitW, maxW);
-
-    const heroW    = portraitW * HERO_RATIO;
-    const cardH    = portraitW * HEIGHT_RATIO;
-    const heroImgH = cardH * (172 / 262.5); // image portion of hero card
-
-    // Apply sizes
-    items.forEach(item => {
-      const sizeDiv = item.querySelector('._2XftMcBO9aY7VXCivzuW7-');
-      if (!sizeDiv) return;
-
-      const isHero = !!item.querySelector(
-        '._3VOR2AeYATx3qSE0I-Pm-5.WYgDg9NyCcMIVuMyZ_NBC'
-      );
-
-      sizeDiv.style.width  = (isHero ? heroW  : portraitW) + 'px';
-      sizeDiv.style.height = cardH + 'px';
-
-      if (isHero) {
-        const imgContainer = sizeDiv.querySelector(
-          '._3VOR2AeYATx3qSE0I-Pm-5._1R9r2OBCxAmtuUVrgBEUBw'
-        );
-        if (imgContainer) imgContainer.style.height = heroImgH + 'px';
-      }
-    });
-
-    // Fix outer panel height
-    const panel = list.closest('._3fiHsLeD_6rtm6bM9lHlVL');
-    if (panel) panel.style.height = cardH + 'px';
-  }
-
-  // Re-run on resize so it adapts if Steam window is resized
-  window.addEventListener('resize', () => {
-    const list = document.querySelector('[role="list"][aria-label="Recent Games"]');
-    if (list) {
-      delete list.dataset.rgPatched;
-      patchRecentGames();
-    }
-  });
-
   const observer = new MutationObserver(() => {
-    clearTimeout(observer._t);
-    observer._t = setTimeout(patchRecentGames, 200);
+    const img = document.querySelector('img[src*="library_hero_blur.jpg"]');
+    if (img) {
+      img.src = img.src.replace('library_hero_blur.jpg', 'library_hero.jpg');
+    }
   });
-
   observer.observe(document.body, { childList: true, subtree: true });
-  setTimeout(patchRecentGames, 400);
-
 })();
-*/
 
-
-
-/**
- * recent_games_merge.js
- * =====================
- * Merges recently played games from a source shelf into the
- * Recent Games shelf, filling it out beyond the default 11 items.
- *
- * How it works:
- *  1. Waits for Recent Games list items to be rendered
- *  2. Expands the source shelf to load all items
- *  3. Finds the splice point — the last item in Recent Games
- *     that also exists in the source shelf (matched by game title)
- *  4. Appends source shelf items after the splice point, wrapped
- *     in native Steam list item structure
- *  5. Hides the source shelf
- *
- * ============================================================
- * USER CONFIGURATION
- * ============================================================
- */
+// ============================================================
+// recent_games_merge
+// Merges recently played games from a source shelf into the
+// Recent Games shelf, filling it out beyond the default 11 items.
+// ============================================================
 const CONFIG = {
-  SOURCE_SHELF_LABEL: 'Recently Played', // Dropdown label of shelf to pull games from
-  TARGET_SHELF_LABEL: 'Recent Games',    // Always Recent Games — here for readability
-  MAX_TOTAL_ITEMS:    25,                // Target total item count in Recent Games shelf
-  EXPAND_WAIT:      2000,                // ms to wait for source shelf expansion
-  POLL_INTERVAL:      80,                // ms between expansion polls
-  DEBUG:           false,                // Set true to enable console logging
+  SOURCE_SHELF_LABEL: 'Recently Played',
+  TARGET_SHELF_LABEL: 'Recent Games',
+  MAX_TOTAL_ITEMS:    25,
+  EXPAND_WAIT:      2000,
+  POLL_INTERVAL:      80,
+  DEBUG:           false,
 };
 
-/**
- * Steam obfuscated class names.
- * Update these if Valve changes them in a Steam update.
- */
 const SC = {
-  SHELF_CONTAINER:   '_2tC_c87MH67xQM7Y0pVyXm', // Outer shelf wrapper div
-  SHELF_LABEL:       'DialogDropDown_CurrentDisplay', // Shelf title dropdown label
-  EXPAND_BUTTON:     '_3sz4Ldugm_cV_JaHOErVR8',  // Expand/collapse arrow button
-  LIST_ITEM:         '_1esfEVxhqNfh8fzr_kEGKa',  // Recent Games list item wrapper
-  LIST_ITEM_SPACER:  '_33gR3fahL5J0_5r8o8YyOi',  // Spacer div inside non-milestone items
-  CARD_SIZE_WRAPPER: '_2XftMcBO9aY7VXCivzuW7-',  // Div that holds inline width/height
-  GAME_NODE:         '_1pwP4eeP1zQD7PEgmsep0W',  // Draggable game card node
+  SHELF_CONTAINER:   '_2tC_c87MH67xQM7Y0pVyXm',
+  SHELF_LABEL:       'DialogDropDown_CurrentDisplay',
+  EXPAND_BUTTON:     '_3sz4Ldugm_cV_JaHOErVR8',
+  LIST_ITEM:         '_1esfEVxhqNfh8fzr_kEGKa',
+  LIST_ITEM_SPACER:  '_33gR3fahL5J0_5r8o8YyOi',
+  CARD_SIZE_WRAPPER: '_2XftMcBO9aY7VXCivzuW7-',
+  GAME_NODE:         '_1pwP4eeP1zQD7PEgmsep0W',
+  GAME_NODE_GRID:    'NSf2V4yY_wxn7AE6DWDYN',
+  LINK_GRID:         '_3ANruIVwRSgaU7L1eWRnf8',
+  LINK_LIST:         'biTV-8rS2M65imVHU15Nv',
+  DATE_BADGE:        '_1LJqx_qFOC8199RBQO5kU8',
 };
-
-/* ============================================================ */
 
 (function () {
   'use strict';
 
   const log = CONFIG.DEBUG ? console.log.bind(console, '[merge]') : () => {};
-
-  // ---- Shelf finders ----
 
   function findRecentGamesList() {
     return document.querySelector('[role="list"][aria-label="Recent Games"]');
@@ -199,11 +63,6 @@ const SC = {
     return null;
   }
 
-  // ---- Title extraction ----
-  // Game name is in a <div id="..."> with display:none inside each item.
-  // We specifically target div[id] to avoid matching the file <input> which
-  // also has display:none but no id.
-
   function getTitleFromListItem(listItem) {
     const nameDiv = listItem.querySelector('div[id][style*="display: none"]');
     return nameDiv?.textContent.trim() || null;
@@ -214,8 +73,6 @@ const SC = {
     return nameDiv?.textContent.trim() || null;
   }
 
-  // ---- Source shelf cells ----
-
   function getSourceCells(shelf) {
     const grid = shelf.querySelector('[role="grid"]');
     if (!grid) return [];
@@ -223,11 +80,20 @@ const SC = {
       .filter(cell => cell.querySelector('.' + SC.GAME_NODE));
   }
 
-  // ---- Build a native Recent Games list item from a source grid cell ----
-
   function buildListItem(cell) {
     const gameNode = cell.querySelector('.' + SC.GAME_NODE);
     if (!gameNode) return null;
+
+    gameNode.classList.remove(SC.GAME_NODE_GRID);
+
+    const linkDiv = gameNode.querySelector('.WYgDg9NyCcMIVuMyZ_NBC');
+    if (linkDiv) {
+      linkDiv.classList.remove(SC.LINK_GRID);
+      linkDiv.classList.add(SC.LINK_LIST);
+    }
+
+    const dateBadge = gameNode.querySelector('.' + SC.DATE_BADGE);
+    if (dateBadge) dateBadge.style.display = 'none';
 
     const listItem = document.createElement('div');
     listItem.className = SC.LIST_ITEM;
@@ -242,21 +108,21 @@ const SC = {
     sizeDiv.style.width  = '175px';
     sizeDiv.style.height = '262.5px';
 
-    sizeDiv.appendChild(gameNode); // MOVE — preserves React handlers + images
+    sizeDiv.appendChild(gameNode);
     listItem.appendChild(sizeDiv);
 
     return listItem;
   }
 
-  // ---- Hide source shelf ----
-
   function hideSourceShelf(shelf) {
     const container = shelf.closest('.' + SC.SHELF_CONTAINER);
-    if (container) container.style.display = 'none';
-    log('source shelf hidden');
+    if (container) {
+      container.style.height = '1px';
+      container.style.overflow = 'hidden';
+      container.style.minHeight = '0';
+    }
+    log('source shelf shrunk');
   }
-
-  // ---- Main merge logic ----
 
   function doMerge(recentList, sourceShelf, sourceCells) {
     if (recentList.dataset.mergeDone === '1') return;
@@ -274,7 +140,6 @@ const SC = {
       recentList.querySelectorAll('.' + SC.LIST_ITEM + '[role="listitem"]')
     );
 
-    // How many more items do we need to reach MAX_TOTAL_ITEMS?
     const currentCount = listItems.length;
     const toAppend = Math.max(0, CONFIG.MAX_TOTAL_ITEMS - currentCount);
 
@@ -284,7 +149,6 @@ const SC = {
       return;
     }
 
-    // Find splice point — last Recent Games item that also exists in source
     let spliceIndex = -1;
     const titlesInRecent = new Set();
 
@@ -336,18 +200,14 @@ const SC = {
     hideSourceShelf(sourceShelf);
   }
 
-  // ---- Expand source shelf then merge ----
-
   function expandAndMerge(recentList, sourceShelf) {
     if (recentList.dataset.mergePatching === '1') return;
     if (recentList.dataset.mergeDone === '1') return;
     recentList.dataset.mergePatching = '1';
 
-    // Ensure source shelf is visible so Steam renders cells during expansion
     const shelfContainer = sourceShelf.closest('.' + SC.SHELF_CONTAINER);
     if (shelfContainer) shelfContainer.style.display = '';
 
-    // Wait until Recent Games list items are actually rendered before proceeding
     const waitDeadline = Date.now() + 5000;
     const waitForItems = setInterval(() => {
       const items = recentList.querySelectorAll('.' + SC.LIST_ITEM + '[role="listitem"]');
@@ -395,11 +255,6 @@ const SC = {
     }, 100);
   }
 
-  // ---- Navigation detection + cleanup ----
-  // When Steam soft-navigates back to the library home, the Recent Games list
-  // is re-rendered as a new DOM element. We detect this by watching for the
-  // list to disappear and reappear, then reset flags and re-run.
-
   let lastKnownList = null;
 
   function run() {
@@ -408,11 +263,8 @@ const SC = {
 
     if (!recentList || !sourceShelf) return;
 
-    // Detect navigation: if the list element is different from last time,
-    // it's a fresh render — reset everything
     if (lastKnownList && lastKnownList !== recentList) {
       log('navigation detected — new list element, resetting');
-      // New element has no flags, so we just proceed
     }
     lastKnownList = recentList;
 
@@ -421,7 +273,6 @@ const SC = {
     expandAndMerge(recentList, sourceShelf);
   }
 
-  // MutationObserver — handles both initial load and soft navigation
   const observer = new MutationObserver(() => {
     clearTimeout(observer._t);
     observer._t = setTimeout(run, 250);
@@ -429,7 +280,6 @@ const SC = {
 
   observer.observe(document.body, { childList: true, subtree: true });
 
-  // Initial retry loop until both shelves are present
   let initAttempts = 0;
   const initTimer = setInterval(() => {
     if (++initAttempts > 20) { clearInterval(initTimer); return; }
