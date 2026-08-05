@@ -1,5 +1,5 @@
 @import "../colors.css";
-@import "./reservedWebkitColors.css";
+@import url(webkit/reservedWebkitColors.css);
 
 * {
     box-shadow: none !important;
@@ -484,7 +484,6 @@ body.v6 .supernav_content {
 .home_category_games_ctn .see_more_link,
 .home_category_ctn .see_more_link {
     bottom: -5px !important;
-    background: var(--grey) !important;
     border-radius: var(--border0) !important;
     padding: 4px !important;
     color: var(--blue) !important;
@@ -650,9 +649,6 @@ div.store_header_btn {
     flex-shrink: 0 !important;
     position: relative !important;
     z-index: 2 !important;
-    margin-right: 10px !important;
-    width: 616px !important;
-    height: 353px !important;
     background-position: center center !important;
     background-size: cover !important;
     border-radius: var(--border0) !important;
@@ -702,12 +698,10 @@ div.store_header_btn {
     border-radius: var(--border0) !important;
 }
 .arrow.left {
-    background: var(--bedarkgrey) !important;
     border-top-left-radius: var(--border0) !important;
     border-bottom-left-radius: var(--border0) !important;
 }
 .arrow.right {
-    background: var(--bedarkgrey) !important;
     border-top-right-radius: var(--border0) !important;
     border-bottom-right-radius: var(--border0) !important;
 }
@@ -1025,9 +1019,6 @@ a.home_marketing_message {
 }
 body.v6 .home_rightcol .tab_preview h2 {
     color: var(--white) !important;
-}
-.tab_review_summary {
-    background-color: var(--bedarkgrey) !important;
 }
 .tab_preview .tags > a {
     background-color: var(--bedarkgrey) !important;
@@ -4107,4 +4098,37 @@ html.client ._16jZ3HEbtaJTl80pQINN2Y,
 
 ._2tlUAG6WNyYFlk9caIiLj5 {
     background: var(--grey) !important;
+}
+
+.home_cluster_ctn.home_pagecontent_ctn.v2 {
+    margin-top: 48px !important;
+}
+
+.store_main_capsule.prev,
+.store_main_capsule.next {
+    display: none !important;
+}
+
+._291ttHtxyu5obiKzor2G9G,
+.store_main_capsule .info,
+.carousel_container.spotlight .carousel_items,
+.home_discount_games_ctn,
+._1rLdYDrWbYRcVNpPlFd225 .uUNiI-Woa-IKlMTl8sNz4,
+.deep_dive_key_tags,
+.recently_updated_desc,
+.tab_preview,
+.home_tabs_sections .tab_content_items {
+    background: var(--darkergrey) !important;
+}
+
+.tab_row_item.focus {
+    background: var(--grey) !important;
+}
+
+.tab_row_item {
+    background: var(--blacker) !important;
+}
+
+._1rLdYDrWbYRcVNpPlFd225 .uUNiI-Woa-IKlMTl8sNz4.zxpXN3eSl7IE7Y_HFaDsf {
+    background: var(--lightgrey) !important;
 }
