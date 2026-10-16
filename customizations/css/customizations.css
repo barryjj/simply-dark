@@ -1,15 +1,45 @@
 /* ===== LIBRARY GRID AND GAME PAGE BANNER CUSTOMIZATIONS ===== */
 
-/* Set custom viewport height variable */
+/* Hero banner sizing.
+ *
+ * The hero is driven by the image's aspect ratio, not a fixed height, so it
+ * keeps its proportions when the window width changes instead of cropping
+ * harder and harder. A vh cap keeps the "big hero" look on wide windows; a px
+ * floor stops it collapsing on very narrow windows and hands the leftover
+ * vertical space back to the game data below.
+ *
+ *   --hero-ar     library_hero.jpg aspect ratio (~96:31)
+ *   --hero-cap    tallest the hero is ever allowed to get
+ *   --hero-floor  shortest the hero shrinks to before it stops giving up height
+ *   --hero-fluid  proportional height derived from the container's own width
+ *   --custom-vh   the resolved hero height, consumed by the calcs below
+ */
 :root {
-    --custom-vh: 60vh;
+    --hero-ar: 96 / 31;
+    --hero-cap: 60vh;
+    --hero-floor: 190px;
 }
 
-/* Game page banner height - uses custom-vh */
+/* The hero wrapper is a size container so --hero-fluid can track its real
+ * rendered width (already accounts for the sidebar, NarrowWindow, etc.).
+ * If this ever stops resolving, 100cqi falls back large and the clamp simply
+ * pins to --hero-cap, i.e. the old fixed-height behaviour. */
+._1IX7FPSY9Jb82KhBVBSkZa {
+    container-type: inline-size !important;
+}
+
 .NZMJ6g2iVnFsOOp-lDmIP {
+    --hero-fluid: calc(100cqi * 31 / 96);
+    --custom-vh: clamp(var(--hero-floor), var(--hero-fluid), var(--hero-cap));
+
+    aspect-ratio: var(--hero-ar) !important;
+    height: auto !important;
+    min-height: var(--hero-floor) !important;
     max-height: var(--custom-vh) !important;
 }
 ._1IX7FPSY9Jb82KhBVBSkZa {
+    --hero-fluid: calc(100cqi * 31 / 96);
+    --custom-vh: clamp(var(--hero-floor), var(--hero-fluid), var(--hero-cap));
     max-height: var(--custom-vh) !important;
 }
 
